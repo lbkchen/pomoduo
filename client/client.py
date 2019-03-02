@@ -8,9 +8,18 @@ app.config['SECRET_KEY'] = 'secret!'
 sio = socketio.AsyncClient()
 
 
-@sio.on("message")
-async def on_message(data):
+@sio.on("update")
+async def on_update(data):
     print("I received a message!")
+
+
+# @skywriter.flick()
+# def flick(start, finish):
+#     sio.emit("message", {
+#         "start": start,
+#         "finish": finish,
+#     })
+#     print('Got a flick!', start, finish)
 
 
 @app.route('/')
