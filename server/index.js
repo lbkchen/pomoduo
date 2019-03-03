@@ -8,8 +8,9 @@ app.get("/", function(req, res) {
 
 io.on("connection", function(socket) {
   console.log("a user connected");
-
+  io.emit("update", "Update from the server.");
   socket.on("message", function(msg) {
+    console.log(`Message received ${msg}`);
     io.emit("Sent a broadcasted message.");
   });
 });
