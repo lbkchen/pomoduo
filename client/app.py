@@ -1,5 +1,4 @@
 from flask import Flask, render_template, jsonify
-import asyncio
 import socketio
 
 from pomodoro import *
@@ -8,13 +7,13 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
-sio = socketio.AsyncClient()
+sio = socketio.Client()
 
 pom = Pomodoro(debug=True)
 
 
 @sio.on("update")
-async def on_update(data):
+def on_update(data):
     print("I received a message!")
 
 
@@ -40,4 +39,9 @@ def get_info():
 @app.route('/start', methods=['POST'])
 def start():
     pom.start()
+    sio.emit("message", "Client started.")
+    sio.send("HELLO")
     return "ok"
+
+
+sio.connect("http://localhost:3000")
