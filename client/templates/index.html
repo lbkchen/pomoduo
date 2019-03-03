@@ -5,8 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Client</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/stylesheets/style.css')
+    }}"
+    />
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='client.js') }}"
+    ></script>
   </head>
   <body>
     <div>Hello world!</div>
+    <button onclick="startTimer()">Start</button>
   </body>
 </html>
