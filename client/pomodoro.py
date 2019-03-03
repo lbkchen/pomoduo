@@ -15,20 +15,27 @@ class Pomodoro:
 
     def __init__(self, debug=False):
         self.state = PomodoroState.INACTIVE
-        self.timer = None
+        self.timer = Timer(self.WORK_TIME_SEC, self.handle_yield)
 
-        # Debug
+        # Debug time in current state
         self._debug = debug
         self._debug_time = 0
         self._debug_delta = 5
+        self._debug_timer = Timer(self._debug_delta, self._debug_log)
 
-    def _debug_log(self):
-        print("[DEBUG] Current time: %s" % self._debug_time)
-        Timer(self._debug_delta, self._debug_log).start()
+    def _debug_log(self, reset_debug_time=False):
+        if reset_debug_time:
+            self._debug_time = 0
+        print("[DEBUG] Current time: %s, state: %s" %
+              (self._debug_time, self.state))
+        self._debug_timer.cancel()
+        self._debug_timer = Timer(self._debug_delta, self._debug_log)
+        self._debug_timer.start()
         self._debug_time += self._debug_delta
 
     def start(self):
         self.state = PomodoroState.WORKING
+        self.timer.cancel()
         self.timer = Timer(self.WORK_TIME_SEC, self.handle_yield)
         self.timer.start()
         if self._debug:
