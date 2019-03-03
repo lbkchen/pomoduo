@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 import asyncio
 import socketio
 
@@ -29,11 +29,15 @@ async def on_update(data):
 
 @app.route('/')
 def index():
-    return render_template('./index.html')
+    return render_template('./index.html', time=pom.elapsed)
+
+
+@app.route('/info')
+def get_info():
+    return jsonify(pom.info)
 
 
 @app.route('/start', methods=['POST'])
 def start():
-    print("Starting to work!")
     pom.start()
     return "ok"

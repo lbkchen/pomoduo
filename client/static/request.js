@@ -2,7 +2,6 @@
  * Base class for sending requests to different API's
  * using JS fetch.
  */
-
 class BaseRequester {
   /**
    * GET request on endpoint.
