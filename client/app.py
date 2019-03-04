@@ -50,7 +50,7 @@ def send_pom_info(info):
     server.send("aaweofijawefoiaw")
 
 
-pom = Pomodoro(debug=True, poll_callback=send_pom_info)
+pom = Pomodoro(poll_callback=send_pom_info)
 
 
 # Connections with client-side JS
@@ -61,6 +61,7 @@ def connect(sid, environ):
     print('A client connected:', sid)
     connected_ids.append(sid)
     server.emit("info", json.dumps(1))
+    return "ok"
 
 
 @server.on("start")
@@ -74,7 +75,7 @@ def on_start(sid, message):
 
 
 @server.on("message")
-def on_message(six, message):
+def on_message(sid, message):
     print("Server side catch all for message", message)
 
 
