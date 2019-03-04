@@ -1,5 +1,5 @@
 // let socket = io();
-const socket = io({ transports: ["websocket"] });
+const socket = io({ transports: ["websocket"], origins: "*" });
 
 socket.on("gesture", function(message) {
   console.warn(`Gesture received by JS client: ${message}`);
