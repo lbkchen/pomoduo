@@ -1,0 +1,10 @@
+{
+  "name": "pomoduo-client",
+  "version": "0.0.1",
+  "description": "Client side for pomoduo",
+  "author": "Ken Chen",
+  "license": "MIT",
+  "dependencies": {
+    "socket.io": "^2.2.0"
+  }
+}

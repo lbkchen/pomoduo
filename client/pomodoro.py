@@ -24,10 +24,10 @@ class Pomodoro:
         PomodoroState.YIELD_FOR_CONTINUE: float("inf"),
     }
 
-    def __init__(self, debug=False):
+    def __init__(self, poll_callback=None, debug=False):
         self.state = PomodoroState.INACTIVE
         self.start_time = time.time()
-        self.stop_time = None
+        self.poll_callback = poll_callback
         self.polling_timer = Timer(self.POLLING_INTERVAL_SEC, self.poll)
 
         # Debug time in current state
@@ -70,6 +70,9 @@ class Pomodoro:
         if self._debug:
             print("[DEBUG] Current time: %s, state: %s" %
                   (self.elapsed, self.state))
+
+        if self.poll_callback:
+            self.poll_callback(self.info)
 
         # Check for state change
         current_interval = self.STATE_INTERVALS[self.state]
