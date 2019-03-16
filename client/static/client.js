@@ -1,27 +1,23 @@
-// let socket = io();
-const socket = io({ transports: ["websocket"], origins: "*" });
+const express = require("express");
+const app = express();
+var path = require("path");
+var http = require("http").Server(app);
+var io = require("socket.io")(http);
 
-socket.on("gesture", function(message) {
-  console.warn(`Gesture received by JS client: ${message}`);
+app.use("/static", express.static(path.join(__dirname, "public")));
+
+app.get("/", function(req, res) {
+  res.sendFile(__dirname + "/index.html");
 });
 
-socket.on("info", function(message) {
-  console.warn(`Info received by JS client: ${message}`);
-  try {
-    const info = JSON.parse(message);
-    // const info = message;
-    console.log(info);
-    document.getElementById("time").textContent = `${info.elapsed}`;
-  } catch (error) {
-    console.error(`Bad JSON received: ${error}`);
-  }
+io.on("connection", function(socket) {
+  console.log("a user connected");
+
+  socket.on("start", function(msg) {
+    console.log("start message received");
+  });
 });
 
-socket.on("message", function(message) {
-  console.warn("Catch all this message was caught:", message);
+http.listen(3000, function() {
+  console.log("listening on *:3000");
 });
-
-async function startTimer() {
-  socket.emit("start", "hello");
-  console.log(socket.disconnected);
-}
