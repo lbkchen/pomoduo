@@ -16,6 +16,11 @@ io.on("connection", function(socket) {
   socket.on("start", function(msg) {
     console.log("start message received");
   });
+
+  socket.on("info", function(msg) {
+    socket.broadcast.emit("info", msg);
+    console.log("info message received");
+  });
 });
 
 http.listen(3000, function() {
