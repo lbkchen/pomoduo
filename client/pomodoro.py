@@ -22,8 +22,9 @@ class PomodoroState:
 class YieldState(PomodoroState):
     DURATION_SECS = float("inf")
 
-    def __init__(self):
+    def __init__(self, duration_secs=DURATION_SECS):
         self.name = "inactive"
+        self.duration_secs = duration_secs
 
 
 class WorkingState(PomodoroState):
