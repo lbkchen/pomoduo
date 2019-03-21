@@ -4,6 +4,10 @@
   "description": "Client side for pomoduo",
   "author": "Ken Chen",
   "license": "MIT",
+  "engines": {
+    "node": ">=11.8.0",
+    "yarn": ">=1.13.0"
+  },
   "dependencies": {
     "express": "^4.16.4",
     "socket.io": "^2.2.0"
